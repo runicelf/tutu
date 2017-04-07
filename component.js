@@ -112,7 +112,7 @@ function getAdditionalInfo(id, data) {
             </textarea>
             Адрес проживания: <b>${ourElem.adress.streetAddress}</b>
             Город: <b>${ourElem.adress.city}</b>
-            Провинция/штат: <b${ourElem.adress.state}</b>
+            Провинция/штат: <b>${ourElem.adress.state}</b>
             Индекс: <b>${ourElem.adress.zip}</b>`;
   }
   return new Error();
