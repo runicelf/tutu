@@ -63,13 +63,19 @@ httpGet(url).then((r) => {
       modify(obj);
     });
   });
-  const arrOfRows = document.getElementsByClassName('row');
-  Object.keys(arrOfRows).forEach(k => {
-    arrOfRows[k].addEventListener('click', () => {
-      additionalInfo.innerHTML = getAdditionalInfo(arrOfRows[k].children[0].innerText, modifiedData);
-      //console.log(e);
-    });
+  table.addEventListener('click', event => {
+    let target = event.target;
+    while(target != table) {
+      if(target.className === 'row') {
+        additionalInfo.innerHTML = getAdditionalInfo(target.children[0].innerText, modifiedData);
+        return;
+      }else {
+        target = target.parentNode;
+      }
+    }
+    return;
   });
+
   searchButton.addEventListener('click', () => {
     const searchValue = document.getElementById('search').value;
     table.innerHTML = arrToTable(search(searchValue));
