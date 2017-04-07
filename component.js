@@ -107,9 +107,7 @@ function getAdditionalInfo(id, data) {
   if(ourElem) {
     return `Выбран пользователь <b>${`${ourElem.firstName} ${ourElem.lastName}`}</b>
             Описание:
-            <textarea>
-            ${ourElem.description}
-            </textarea>
+            <textarea>${ourElem.description}</textarea>
             Адрес проживания: <b>${ourElem.adress.streetAddress}</b>
             Город: <b>${ourElem.adress.city}</b>
             Провинция/штат: <b>${ourElem.adress.state}</b>
