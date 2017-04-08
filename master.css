@@ -55,3 +55,6 @@
 .id {
   width: 50px;
 }
+.phone {
+  border-right: none;
+}
