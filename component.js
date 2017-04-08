@@ -18,9 +18,13 @@ function httpGet(url) {
 }
 
 const url = 'http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}';
+const url2  = 'http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}';
 const table = document.getElementById('table-ins');
 const searchButton = document.getElementById('search-button');
 const additionalInfo = document.getElementById('additional-info');
+const pageCounter = document.getElementById('page-counter');
+const left = document.getElementById('left');
+const right = document.getElementById('right');
 const buttons = [
   {
     elem: document.getElementById('id'),
@@ -49,7 +53,7 @@ const buttons = [
   }
 ];
 
-httpGet(url).then((r) => {
+httpGet(url2).then((r) => {
   const data = JSON.parse(r);
   let modifiedData = data;
   function modify(obj) {
@@ -75,10 +79,23 @@ httpGet(url).then((r) => {
     }
     return;
   });
-
+  left.addEventListener('click', () => {
+    const bool = arrToTable(modifiedData, 'left');
+    if(bool) {
+      table.innerHTML = bool;
+    }
+    return;
+  });
+  right.addEventListener('click', () => {
+    const bool = arrToTable(modifiedData, 'right');
+    if(bool) {
+      table.innerHTML = bool;
+    }
+    return;
+  });
   searchButton.addEventListener('click', () => {
     const searchValue = document.getElementById('search').value;
-    table.innerHTML = arrToTable(search(searchValue));
+    table.innerHTML = arrToTable(search(searchValue, null, true));
   });
   function search(value) {
     if(!value) {
@@ -127,10 +144,38 @@ function sorter(name, arr, up) {
     return 0;
   });
 }
-function arrToTable(jsn) {
-  return jsn.reduce((acc, elem) => {
-    return acc + htmlTable(elem);
-  },'');
+const arrToTable = arrToTableWrapper();
+function arrToTableWrapper() {
+  let realPageCounter = 1;
+  return (data, direction, reset = false) => {
+    if(data.length === 0) {
+      return '';
+    }
+    const pageAmount = Math.ceil(data.length / 15);
+    if(direction === 'left') {
+      if(realPageCounter === 1 ){
+        return false;
+      }
+      realPageCounter += -1;
+    }else if(direction === 'right') {
+      if(realPageCounter === pageAmount) {
+        return false;
+      }
+      realPageCounter += 1;
+    }
+    if(reset) {
+      realPageCounter = 1;
+    }
+    const finalPage = 15 * realPageCounter + 1;
+    const startPage = finalPage - 15;
+
+
+    pageCounter.innerHTML = `${realPageCounter} / ${pageAmount}`;
+    return data.slice(startPage, finalPage).reduce((acc, elem) => {
+      return acc + htmlTable(elem);
+    },'');
+}
+
 }
 
 function htmlTable(data) {

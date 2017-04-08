@@ -9,20 +9,25 @@
     <div class="wrapper">
       <div class="search">
         <input id="search" type="text" name="search" value="">
-        <input id="search-button" type="submit" name="search" value="Найти">
+        <input id="search-button" class="search-button" type="submit" name="search" value="Найти">
       </div>
       <div id="additional-info" class="additional-info">
 
       </div>
       <div id="table" class="table">
         <div class="header row">
-          <div id="id" class="cell ">id</div>
+          <div id="id" class="cell id ">id</div>
           <div id="first-name" class="cell">firstName</div>
           <div id="last-name" class="cell">lastName</div>
           <div id="email" class="cell">email</div>
           <div id="phone" class="cell">phone</div>
         </div>
         <div id="table-ins" class="table-ins"></div>
+        <div class="pagination">
+          <div id="page-counter" class="page-counter"></div>
+          <div id="left" class="left"></div>
+          <div id="right" class="right"></div>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src ="component.js"></script>
