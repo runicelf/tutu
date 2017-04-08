@@ -53,8 +53,14 @@
   margin-top: 20px;
 }
 .id {
-  width: 50px;
+  width: 100px;
 }
 .phone {
   border-right: none;
+}
+.load-image {
+  width: 100px;
+  margin: auto;
+  text-align: center;
+  padding: 50px;
 }
